@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WalkFit - Make walking your primary form of exercise. Track steps, join events, earn rewards, and build a healthier lifestyle.">
+    <title>WalkFit - Your Walking Companion | Track, Connect, Achieve</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #028090;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #028090;
+        }
+
+        .cta-button {
+            background: #028090;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #026d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2,128,144,0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #028090 0%, #00A896 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #028090;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #028090;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: #028090;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #028090;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: #028090;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        /* Programs Section */
+        .programs {
+            background: #f8f9fa;
+            padding: 5rem 2rem;
+        }
+
+        .programs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #028090;
+        }
+
+        .program-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .program-duration {
+            color: #028090;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Events Section */
+        .events {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .event-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .event-image {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #028090, #00A896);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            flex-shrink: 0;
+        }
+
+        .event-details h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            color: #666;
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Store Section */
+        .store {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5rem 2rem;
+        }
+
+        .store-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .store-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .store-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .category-item {
+            background: rgba(255,255,255,0.2);
+            padding: 2rem 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .category-item:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Community Section */
+        .community {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .community-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .community-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .community-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .community-card h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        /* Rewards Section */
+        .rewards {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+        }
+
+        .rewards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .reward-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .reward-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #028090;
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .price-tag {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #028090;
+            margin: 1rem 0;
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .price-features li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .price-features li:before {
+            content: "✓";
+            color: #028090;
+            font-weight: bold;
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #028090 0%, #00A896 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #f3f4f6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .event-card {
+                flex-direction: column;
+            }
+
+            .event-image {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🚶 WalkFit</div>
+            <ul class="nav-links">
+                <li><a href="pages/features.html">Features</a></li>
+                <li><a href="pages/programs.html">Programs</a></li>
+                <li><a href="pages/events.html">Events</a></li>
+                <li><a href="pages/store.html">Store</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div id="userMenu">
+                <a href="pages/signup.html" class="cta-button">Get Started Free</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Make Walking Your Primary Form of Exercise</h1>
+            <p>Track your steps, join community events, earn rewards, and build a healthier lifestyle with WalkFit</p>
+            <div class="hero-buttons">
+                <a href="pages/signup.html" class="btn-primary">Start Your Journey</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>5,000+</h3>
+                <p>Active Users</p>
+            </div>
+            <div class="stat-item">
+                <h3>100M+</h3>
+                <p>Steps Tracked</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Events Hosted</p>
+            </div>
+            <div class="stat-item">
+                <h3>30%</h3>
+                <p>Monthly Active Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Comprehensive Features</h2>
+            <p>Everything you need to make walking engaging, social, and rewarding</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Activity Tracking & Data Sync</h3>
+                <p>Seamlessly track your walking activity with multiple integration options</p>
+                <ul class="feature-list">
+                    <li>Google Fit & Apple Health integration</li>
+                    <li>Fitbit & Strava sync</li>
+                    <li>Manual entry with quick-entry widget</li>
+                    <li>Photo upload with OCR for step counts</li>
+                    <li>Track steps, distance, calories, pace</li>
+                    <li>Automatic sync every 30 minutes</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Dashboard & Analytics</h3>
+                <p>Visualize your progress with comprehensive analytics and insights</p>
+                <ul class="feature-list">
+                    <li>Real-time step counter with progress indicator</li>
+                    <li>Weekly/Monthly/Yearly trend charts</li>
+                    <li>AI-powered insights & recommendations</li>
+                    <li>Export data as CSV/PDF reports</li>
+                    <li>Compare with similar users</li>
+                    <li>Weekly email digest</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Fitness Programs</h3>
+                <p>Structured walking programs for all fitness levels</p>
+                <ul class="feature-list">
+                    <li>Beginner to Advanced programs</li>
+                    <li>Weight Loss Walking Plan</li>
+                    <li>5K & 10K Walk Challenges</li>
+                    <li>Day-by-day structured plans</li>
+                    <li>Progress tracking & reminders</li>
+                    <li>Completion badges & certificates</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Events & Walkathons</h3>
+                <p>Discover and participate in local and virtual walking events</p>
+                <ul class="feature-list">
+                    <li>Browse events by location & date</li>
+                    <li>Integrated payment & registration</li>
+                    <li>Digital tickets with QR codes</li>
+                    <li>Group registration options</li>
+                    <li>Event reminders & notifications</li>
+                    <li>Virtual & in-person events</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Community & Social</h3>
+                <p>Connect with fellow walkers and stay motivated together</p>
+                <ul class="feature-list">
+                    <li>Global & local leaderboards</li>
+                    <li>Create & join walking groups</li>
+                    <li>Friends system & challenges</li>
+                    <li>Group chat & discussion boards</li>
+                    <li>Share achievements on social media</li>
+                    <li>Referral program rewards</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>Rewards & Gamification</h3>
+                <p>Earn points, unlock badges, and level up your walking journey</p>
+                <ul class="feature-list">
+                    <li>Points for every 1,000 steps</li>
+                    <li>50+ badges to unlock</li>
+                    <li>100 user levels & rank titles</li>
+                    <li>Redeem points for store credit</li>
+                    <li>Streak bonuses & achievements</li>
+                    <li>Exclusive perks for high levels</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛍️</div>
+                <h3>In-App Store</h3>
+                <p>Shop for walking gear, wearables, and fitness essentials</p>
+                <ul class="feature-list">
+                    <li>Premium walking shoes & apparel</li>
+                    <li>Smart bands & wearables</li>
+                    <li>Nutrition & supplements</li>
+                    <li>Use reward points for discounts</li>
+                    <li>Secure checkout with Stripe</li>
+                    <li>Order tracking & history</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Progressive Web App</h3>
+                <p>App-like experience that works on any device</p>
+                <ul class="feature-list">
+                    <li>Install on mobile home screen</li>
+                    <li>Works offline with sync</li>
+                    <li>Push notifications</li>
+                    <li>Fast load times (< 3 seconds)</li>
+                    <li>Responsive design (mobile-first)</li>
+                    <li>Cross-platform compatibility</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs" id="programs">
+        <div class="programs-container">
+            <div class="section-header">
+                <h2>Structured Walking Programs</h2>
+                <p>Achieve your fitness goals with our expertly designed programs</p>
+            </div>
+
+            <div class="programs-grid">
+                <div class="program-card">
+                    <h4>🚀 Beginner 2 km Plan</h4>
+                    <div class="program-duration">4 weeks</div>
+                    <p>Perfect for those just starting their walking journey. Build stamina gradually with structured daily plans.</p>
+                </div>
+
+                <div class="program-card">
+                    <h4>🏃 5K Walk Challenge</h4>
+                    <div class="program-duration">8 weeks</div>
+                    <p>Work your way up to walking 5 kilometers comfortably. Includes rest days and progressive distance increases.</p>
+                </div>
+
+                <div class="program-card">
+                    <h4>⚖️ Weight Loss Walking Plan</h4>
+                    <div class="program-duration">12 weeks</div>
+                    <p>Combine walking with nutrition guidance for effective weight management and fat loss.</p>
+                </div>
+
+                <div class="program-card">
+                    <h4>👴 Senior Mobility Program</h4>
+                    <div class="program-duration">6 weeks</div>
+                    <p>Low-impact walking plan designed for seniors to improve mobility, balance, and overall health.</p>
+                </div>
+
+                <div class="program-card">
+                    <h4>💼 Office Worker Mobility</h4>
+                    <div class="program-duration">4 weeks</div>
+                    <p>Combat sedentary lifestyle with walking breaks and desk-friendly stretching routines.</p>
+                </div>
+
+                <div class="program-card">
+                    <h4>🎯 10,000 Steps Daily</h4>
+                    <div class="program-duration">30 days</div>
+                    <p>Build the habit of achieving 10,000 steps every day with motivation and accountability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="events" id="events">
+        <div class="section-header">
+            <h2>Upcoming Walking Events</h2>
+            <p>Join thousands of walkers in local and virtual events</p>
+        </div>
+
+        <div class="event-card">
+            <div class="event-image">📍</div>
+            <div class="event-details">
+                <h4>City Park 5K Walkathon</h4>
+                <p>Join 500+ walkers for a morning walk through the beautiful City Park. All fitness levels welcome!</p>
+                <div class="event-meta">
+                    <span>📅 February 15, 2026</span>
+                    <span>⏰ 7:00 AM</span>
+                    <span>👥 523 registered</span>
+                    <span>💰 ₹299</span>
+                </div>
+                <a href="#" class="btn-primary">Register Now</a>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-image">🌳</div>
+            <div class="event-details">
+                <h4>Nature Trail Adventure Walk</h4>
+                <p>Scenic 10km walk through Green Valley Trail. Experience nature while getting fit!</p>
+                <div class="event-meta">
+                    <span>📅 February 20, 2026</span>
+                    <span>⏰ 6:00 AM</span>
+                    <span>👥 187 registered</span>
+                    <span>💰 ₹499</span>
+                </div>
+                <a href="#" class="btn-primary">Register Now</a>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-image">🌍</div>
+            <div class="event-details">
+                <h4>Global Walk Day (Virtual)</h4>
+                <p>Walk anywhere, anytime during March 1-7. Join 12,000+ participants worldwide!</p>
+                <div class="event-meta">
+                    <span>📅 March 1-7, 2026</span>
+                    <span>⏰ Anytime</span>
+                    <span>👥 12,456 joined</span>
+                    <span>💰 Free</span>
+                </div>
+                <a href="#" class="btn-primary">Join Challenge</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="store" id="store">
+        <div class="store-container">
+            <h2>WalkFit Store</h2>
+            <p>Premium walking gear, wearables, and fitness essentials</p>
+
+            <div class="store-categories">
+                <div class="category-item">
+                    <div class="category-icon">👟</div>
+                    <p>Walking Shoes</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">👕</div>
+                    <p>Fitness Wear</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">⌚</div>
+                    <p>Smart Bands</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">💊</div>
+                    <p>Supplements</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">💧</div>
+                    <p>Hydration</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🎒</div>
+                    <p>Accessories</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <a href="#" class="btn-primary">Browse Store</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="community" id="community">
+        <div class="section-header">
+            <h2>Join the Walking Community</h2>
+            <p>Connect, compete, and stay motivated with fellow walkers</p>
+        </div>
+
+        <div class="community-features">
+            <div class="community-card">
+                <div class="community-icon">🏅</div>
+                <h4>Leaderboards</h4>
+                <p>Compete on global, local, friends, and age-group leaderboards. Track daily, weekly, and monthly rankings.</p>
+            </div>
+
+            <div class="community-card">
+                <div class="community-icon">👥</div>
+                <h4>Walking Groups</h4>
+                <p>Create or join public/private groups. Organize group walks and participate in collective challenges.</p>
+            </div>
+
+            <div class="community-card">
+                <div class="community-icon">💬</div>
+                <h4>Social Sharing</h4>
+                <p>Share achievements, badges, and milestones on social media with custom branded graphics.</p>
+            </div>
+
+            <div class="community-card">
+                <div class="community-icon">🤝</div>
+                <h4>Friends System</h4>
+                <p>Connect with friends, view their activity, send kudos, and challenge each other to friendly competitions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rewards">
+        <div class="rewards-container">
+            <div class="section-header" style="color: white;">
+                <h2>Rewards & Gamification</h2>
+                <p>Earn points, unlock badges, and level up your walking journey</p>
+            </div>
+
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <h4>🎯 Points System</h4>
+                    <ul class="feature-list">
+                        <li>10 points per 1,000 steps</li>
+                        <li>50 bonus for daily goal</li>
+                        <li>200 bonus for 7-day streak</li>
+                        <li>1,000 bonus for 30-day streak</li>
+                        <li>Redeem for store credit (100 pts = ₹10)</li>
+                    </ul>
+                </div>
+
+                <div class="reward-card">
+                    <h4>🏅 Badges & Achievements</h4>
+                    <ul class="feature-list">
+                        <li>50+ badges to unlock</li>
+                        <li>Milestone badges (First Mile, 10K Steps)</li>
+                        <li>Streak badges (Week Warrior, Month Master)</li>
+                        <li>Social badges (Friend Maker, Group Leader)</li>
+                        <li>4 rarity levels: Common to Legendary</li>
+                    </ul>
+                </div>
+
+                <div class="reward-card">
+                    <h4>⭐ Levels & Ranks</h4>
+                    <ul class="feature-list">
+                        <li>100 user levels to achieve</li>
+                        <li>Beginner Walker (Levels 1-10)</li>
+                        <li>Active Walker (Levels 11-25)</li>
+                        <li>Elite Walker (Levels 51-75)</li>
+                        <li>Unlock perks at higher levels</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>Simple, Transparent Pricing</h2>
+            <p>Choose the plan that fits your walking goals</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price-tag">₹0</div>
+                <p>Perfect for getting started</p>
+                <ul class="price-features">
+                    <li>Activity tracking & sync</li>
+                    <li>Basic analytics</li>
+                    <li>Join events & programs</li>
+                    <li>Community access</li>
+                    <li>Earn points & badges</li>
+                    <li>Store access</li>
+                </ul>
+                <a href="#signup" class="btn-primary">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <h3>Premium</h3>
+                <div class="price-tag">₹799/month</div>
+                <p>For serious walkers</p>
+                <ul class="price-features">
+                    <li>Everything in Free</li>
+                    <li>Ad-free experience</li>
+                    <li>Advanced analytics & insights</li>
+                    <li>1-on-1 virtual coaching (monthly)</li>
+                    <li>Exclusive challenges & events</li>
+                    <li>Early access to features</li>
+                    <li>10% store discount</li>
+                    <li>Custom program builder</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#signup" class="btn-primary">Start Premium</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Corporate</h3>
+                <div class="price-tag">Custom</div>
+                <p>For teams & companies</p>
+                <ul class="price-features">
+                    <li>Everything in Premium</li>
+                    <li>Company dashboard</li>
+                    <li>Employee tracking & reports</li>
+                    <li>Company-wide challenges</li>
+                    <li>Bulk user management</li>
+                    <li>Custom branding</li>
+                    <li>Dedicated account manager</li>
+                </ul>
+                <a href="#contact" class="btn-primary">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta" id="signup">
+        <h2>Ready to Start Your Walking Journey?</h2>
+        <p>Join 5,000+ users who are making walking their primary form of exercise</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">Start Free Trial</a>
+            <a href="#" class="btn-secondary">Watch Demo</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#store">Store</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press Kit</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Community Forum</a></li>
+                    <li><a href="#">Video Tutorials</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                    <li><a href="#">System Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">GDPR Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 WalkFit. All rights reserved. | Making walking accessible, social, and rewarding.</p>
+        </div>
+    </footer>
+</body>
+</html>
