@@ -2425,8 +2425,31 @@
             };
 
             const handleGoogleLogin = () => {
-                const apiUrl = window.API_CONFIG?.API_URL || 'http://localhost:5000/api';
-                window.location.href = `${apiUrl}/auth/google`;
+                // Simulate Google OAuth sign-in popup
+                const googleEmail = prompt('Enter your Google email:');
+                
+                if (!googleEmail || !googleEmail.includes('@')) {
+                    alert('⚠️ Please enter a valid email address');
+                    return;
+                }
+
+                // Extract name from email and format it
+                const nameParts = googleEmail.split('@')[0].replace(/[._-]/g, ' ').split(' ');
+                const firstName = nameParts[0]?.charAt(0).toUpperCase() + nameParts[0]?.slice(1);
+                const lastName = nameParts[1]?.charAt(0).toUpperCase() + nameParts[1]?.slice(1) || '';
+                const fullName = lastName ? `${firstName} ${lastName}` : firstName;
+
+                // Simulate successful Google login
+                setTimeout(() => {
+                    const userData = {
+                        name: fullName,
+                        email: googleEmail,
+                        avatar: fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+                    };
+                    onLogin(userData);
+                }, 1500);
+
+                alert(`🔐 Signing in with Google...\n\nEmail: ${googleEmail}\n\nPlease wait...`);
             };
 
             const handleSignup = async (e) => {
