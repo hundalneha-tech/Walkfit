@@ -4206,7 +4206,8 @@
         function StoreScreen() {
             const [selectedCategory, setSelectedCategory] = useState('all');
             const [searchQuery, setSearchQuery] = useState('');
-            const [cartItems, setCartItems] = useState(0);
+            const [cart, setCart] = useState([]);
+            const [showCart, setShowCart] = useState(false);
 
             const categories = [
                 { id: 'all', name: 'All', icon: '🛍️' },
@@ -4323,19 +4324,51 @@
             });
 
             const addToCart = (product) => {
-                setCartItems(cartItems + 1);
-                // Add animation or notification here
+                const existingItem = cart.find(item => item.id === product.id);
+                
+                if (existingItem) {
+                    // If product already in cart, increase quantity
+                    setCart(cart.map(item =>
+                        item.id === product.id
+                            ? { ...item, quantity: item.quantity + 1 }
+                            : item
+                    ));
+                } else {
+                    // Add new product to cart
+                    setCart([...cart, { ...product, quantity: 1 }]);
+                }
+                
+                alert(`✅ ${product.name} added to cart!`);
             };
+
+            const removeFromCart = (productId) => {
+                setCart(cart.filter(item => item.id !== productId));
+            };
+
+            const updateQuantity = (productId, quantity) => {
+                if (quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    setCart(cart.map(item =>
+                        item.id === productId
+                            ? { ...item, quantity }
+                            : item
+                    ));
+                }
+            };
+
+            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
             return (
                 <>
                     <div className="app-header">
                         <h1>Store 🛍️</h1>
                         <div className="header-icons">
-                            <button className="icon-btn" style={{position: 'relative'}}>
+                            <button className="icon-btn" style={{position: 'relative'}} onClick={() => setShowCart(true)}>
                                 🛒
-                                {cartItems > 0 && (
-                                    <div className="cart-badge">{cartItems}</div>
+                                {cartCount > 0 && (
+                                    <div className="cart-badge">{cartCount}</div>
                                 )}
                             </button>
                         </div>
@@ -4436,6 +4469,174 @@
                             </div>
                         )}
                     </div>
+
+                    {/* Shopping Cart Modal */}
+                    {showCart && (
+                        <div className="modal-overlay" onClick={() => setShowCart(false)}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <div className="modal-title">🛒 Shopping Cart</div>
+                                    <button className="modal-close" onClick={() => setShowCart(false)}>×</button>
+                                </div>
+
+                                <div style={{padding: '20px'}}>
+                                    {cart.length === 0 ? (
+                                        <div style={{textAlign: 'center', padding: '40px 20px'}}>
+                                            <div style={{fontSize: '60px', marginBottom: '16px'}}>🛒</div>
+                                            <p style={{color: 'var(--text-gray)', marginBottom: '16px'}}>Your cart is empty</p>
+                                            <button className="btn" style={{width: '100%'}} onClick={() => setShowCart(false)}>
+                                                Continue Shopping
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            {/* Cart Items */}
+                                            <div style={{marginBottom: '20px', maxHeight: '400px', overflowY: 'auto'}}>
+                                                {cart.map((item, idx) => (
+                                                    <div key={idx} style={{
+                                                        padding: '16px',
+                                                        background: 'var(--bg-light)',
+                                                        borderRadius: '12px',
+                                                        marginBottom: '12px',
+                                                        display: 'flex',
+                                                        gap: '12px',
+                                                        alignItems: 'flex-start'
+                                                    }}>
+                                                        <div style={{
+                                                            width: '60px',
+                                                            height: '60px',
+                                                            borderRadius: '8px',
+                                                            background: item.color,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            fontSize: '32px',
+                                                            flexShrink: 0
+                                                        }}>
+                                                            {item.icon}
+                                                        </div>
+                                                        <div style={{flex: 1}}>
+                                                            <div style={{fontWeight: '600', color: 'var(--text-dark)', marginBottom: '4px'}}>
+                                                                {item.name}
+                                                            </div>
+                                                            <div style={{fontSize: '14px', color: 'var(--primary)', fontWeight: '700', marginBottom: '8px'}}>
+                                                                ${item.price}
+                                                            </div>
+                                                            <div style={{display: 'flex', gap: '6px', alignItems: 'center'}}>
+                                                                <button 
+                                                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                                    style={{
+                                                                        width: '24px',
+                                                                        height: '24px',
+                                                                        border: 'none',
+                                                                        background: 'white',
+                                                                        borderRadius: '4px',
+                                                                        cursor: 'pointer',
+                                                                        fontSize: '14px',
+                                                                        fontWeight: '700'
+                                                                    }}
+                                                                >
+                                                                    −
+                                                                </button>
+                                                                <input 
+                                                                    type="number" 
+                                                                    value={item.quantity}
+                                                                    onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
+                                                                    style={{
+                                                                        width: '35px',
+                                                                        textAlign: 'center',
+                                                                        border: '1px solid var(--border)',
+                                                                        borderRadius: '4px',
+                                                                        padding: '4px'
+                                                                    }}
+                                                                    min="1"
+                                                                />
+                                                                <button 
+                                                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                                    style={{
+                                                                        width: '24px',
+                                                                        height: '24px',
+                                                                        border: 'none',
+                                                                        background: 'white',
+                                                                        borderRadius: '4px',
+                                                                        cursor: 'pointer',
+                                                                        fontSize: '14px',
+                                                                        fontWeight: '700'
+                                                                    }}
+                                                                >
+                                                                    +
+                                                                </button>
+                                                                <button 
+                                                                    onClick={() => removeFromCart(item.id)}
+                                                                    style={{
+                                                                        marginLeft: 'auto',
+                                                                        background: 'none',
+                                                                        border: 'none',
+                                                                        color: 'var(--accent)',
+                                                                        cursor: 'pointer',
+                                                                        fontSize: '14px',
+                                                                        fontWeight: '600'
+                                                                    }}
+                                                                >
+                                                                    Remove
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div style={{textAlign: 'right', minWidth: '60px'}}>
+                                                            <div style={{fontSize: '14px', fontWeight: '700', color: 'var(--text-dark)'}}>
+                                                                ${(item.price * item.quantity).toFixed(2)}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/* Cart Summary */}
+                                            <div style={{
+                                                padding: '16px',
+                                                background: 'var(--bg-light)',
+                                                borderRadius: '12px',
+                                                marginBottom: '20px',
+                                                borderTop: '2px solid var(--border)'
+                                            }}>
+                                                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
+                                                    <span style={{color: 'var(--text-gray)'}}>Subtotal:</span>
+                                                    <span style={{fontWeight: '600', color: 'var(--text-dark)'}}>${cartTotal.toFixed(2)}</span>
+                                                </div>
+                                                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
+                                                    <span style={{color: 'var(--text-gray)'}}>Shipping:</span>
+                                                    <span style={{fontWeight: '600', color: 'var(--text-dark)'}}>Free</span>
+                                                </div>
+                                                <div style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    paddingTop: '8px',
+                                                    borderTop: '1px solid var(--border)'
+                                                }}>
+                                                    <span style={{fontWeight: '700', color: 'var(--text-dark)'}}>Total:</span>
+                                                    <span style={{fontWeight: '800', fontSize: '18px', color: 'var(--primary)'}}>${cartTotal.toFixed(2)}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Action Buttons */}
+                                            <div className="button-group">
+                                                <button className="btn btn-secondary" style={{flex: 1}} onClick={() => setShowCart(false)}>
+                                                    Continue Shopping
+                                                </button>
+                                                <button className="btn" style={{flex: 1}} onClick={() => {
+                                                    alert(`✅ Order placed successfully!\n\nTotal: $${cartTotal.toFixed(2)}\nItems: ${cartCount}\n\nThank you for your purchase!`);
+                                                    setCart([]);
+                                                    setShowCart(false);
+                                                }}>
+                                                    Checkout (${cartTotal.toFixed(2)})
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </>
             );
         }
